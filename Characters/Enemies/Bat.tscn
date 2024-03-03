@@ -1,0 +1,103 @@
+[gd_scene load_steps=7 format=3 uid="uid://beiaroiclincu"]
+
+[ext_resource type="Script" path="res://Characters/Enemies/Bat.gd" id="1_4nrkk"]
+[ext_resource type="Texture2D" uid="uid://dtl42l0jspd3x" path="res://icon.svg" id="2_xy5ng"]
+
+[sub_resource type="Animation" id="Animation_f738j"]
+resource_name = "Attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-32, 0), Vector2(0, -32), Vector2(46, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.0, 0.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_d7h1m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kpapr"]
+_data = {
+"Attack": SubResource("Animation_f738j"),
+"RESET": SubResource("Animation_d7h1m")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0d1gy"]
+size = Vector2(64, 64)
+
+[node name="Bat" type="Node2D"]
+script = ExtResource("1_4nrkk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_kpapr")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.243137, 0.0862745, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_xy5ng")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_0d1gy")
+
+[node name="hp" type="Label" parent="."]
+offset_left = -120.0
+offset_top = -57.0
+offset_right = -80.0
+offset_bottom = -34.0
+
+[node name="damageLabel" type="Label" parent="."]
+offset_left = 206.0
+offset_top = -26.0
+offset_right = 246.0
+offset_bottom = -3.0
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

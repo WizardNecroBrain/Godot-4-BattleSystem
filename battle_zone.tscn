@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdgu35ea2ms3y"]
+
+[ext_resource type="Script" path="res://battle_zone.gd" id="1_hdcff"]
+[ext_resource type="PackedScene" uid="uid://c4ef4f2ly0jsn" path="res://Characters/Player/Player.tscn" id="1_wbgab"]
+
+[node name="BattleZone" type="Node2D"]
+script = ExtResource("1_hdcff")
+
+[node name="Player" parent="." instance=ExtResource("1_wbgab")]
+position = Vector2(949, 366)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -21.0
+offset_top = 104.0
+offset_right = 19.0
+offset_bottom = 127.0
+grow_horizontal = 2
+
+[node name="BattleButtons" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -576.0
+offset_right = 576.0
+offset_bottom = 648.0
+grow_horizontal = 2
+
+[node name="ButtonAttack" type="Button" parent="CanvasLayer/BattleButtons"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -237.0
+offset_right = -135.0
+offset_bottom = 56.0
+grow_horizontal = 2
+text = "Attack"
+
+[node name="ButtonSkip" type="Button" parent="CanvasLayer/BattleButtons"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 144.0
+offset_top = 1.0
+offset_right = 241.0
+offset_bottom = 59.0
+grow_horizontal = 2
+text = "Skip"
+
+[connection signal="button_down" from="CanvasLayer/BattleButtons/ButtonAttack" to="." method="_on_button_attack_button_down"]
+[connection signal="button_down" from="CanvasLayer/BattleButtons/ButtonSkip" to="." method="_on_button_skip_button_down"]
